@@ -1,7 +1,10 @@
 'use strict';
-
-const awsServerlessExpress = require('aws-serverless-express')
-const app = require('./app')
-const server = awsServerlessExpress.createServer(app)
-
-exports.handler = (event, context) => awsServerlessExpress.proxy(server, event, context);
+// Example of a Proxy Integration response
+exports.handler = (event, context, callback) => {
+  let ID = event['pathParameters']['ID']
+    callback(null, {
+        statusCode: 200,
+        headers: { "x-custom-header" : "my custom header value" },
+        body: "hello world " + ID
+    });
+}
